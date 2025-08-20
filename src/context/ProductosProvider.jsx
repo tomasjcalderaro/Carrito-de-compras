@@ -1,23 +1,26 @@
-import { useEffect } from "react"
-import {ProductosContext} from "../context/ProductoContext"
+import { useEffect, useState } from "react"
+import { ProductosContext } from "../context/ProductoContext"
 
 export const ProductosProvider = ({children}) => {
     
     const [productos, setProductos] = useState([])
 
     const fetchProductos = async() => {
-        const response = await fetch('https://fakestoreapi.com/products')
-        const data = await response.json()
-        console.log(data)
-        setProductos(data)
-    }
+        try {
+            const response = await fetch('https://fakestoreapi.com/products');
+            const data = await response.json();
+            setProductos(data);
+        } catch (error) {
+            console.error("Error al obtener los productos:", error);
+        }
+    };
 
     useEffect(() => {
         fetchProductos()
     }, [])
 
     return (
-        <ProductosContext.Provider value={{}}>
+        <ProductosContext.Provider value={{ productos }}>
             {children}
         </ProductosContext.Provider>
     )
