@@ -1,13 +1,17 @@
 import { useState} from "react"
 import '../styles/card.css'
-export const Card = ({ imagen, titulo, descripcion, precio }) => {
+
+export const Card = ({ imagen, titulo, descripcion, precio, handleAgregar, handleQuitar,}) => {
     
     const [added, setAdded] = useState(false)
+    
     const clickAgregar = () => {
-        setAdded(true)
+        handleAgregar();
+        setAdded(true);
     }
     const clickQuitar = () => {
-        setAdded(false)
+        handleQuitar();
+        setAdded(false);
     }
     return (
         <div className="tarjeta">
@@ -22,14 +26,14 @@ export const Card = ({ imagen, titulo, descripcion, precio }) => {
                 <button 
                 type="button" 
                 className="boton-quitar"
-                onClick={() => setAdded(false)}>
+                onClick={(clickQuitar)}>
                     Quitar del carrito
                 </button>
             ) : (
                 <button 
                 type="button" 
                 className="boton-agregar" 
-                onClick={() => setAdded(true)}>
+                onClick={(clickAgregar)}>
                     Agregar al carrito
                 </button>
             )}
